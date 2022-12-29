@@ -1,33 +1,42 @@
 import { gql, useQuery } from "urql"
-import { Attack, Pokemon, Query } from "../src/@types/types"
 
-const getPikachu = gql(`
-  query getPikachu {
-    pokemon (name: "pikachu") {
-      number
+import Image from "next/image"
+import { Query_Root } from "../src/@types/types"
+
+const getPokemons = gql(`
+  query pokemon {
+    pokemon_v2_pokemon(limit:5, where:{pokemon_species_id: {_gt: 500}}) {
       name
-      image
-      attacks {
-        fast {
-          name
-          type
-          damage
-        }
+      pokemon_v2_pokemonsprites {
+        sprites
       }
     }
   }
 `)
 
 const Component = () => {
-  const [result, reeexcuteQuery] = useQuery<Query>({
-    query: getPikachu,
+  const [result, reeexcute] = useQuery<Query_Root>({
+    query: getPokemons,
   })
   const { data, fetching, error } = result
-  const attackName = data?.pokemon?.attacks?.fast[0]?.name
+  const pokemons = data?.pokemon_v2_pokemon
 
   if (fetching) return <p>ロード中...</p>
   if (error) return <p>こういうエラーが発生しました: {error.message}</p>
-  return <p>{attackName}</p>
+  return (
+    <>
+      {pokemons?.map((p) => {
+        const urlIndex = JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites)
+        const url = urlIndex.front_default
+        return (
+          <>
+            <p>{p.name}</p>
+            <Image src={url} height={100} width={100} alt="pokemon" />
+          </>
+        )
+      })}
+    </>
+  )
 }
 
 export default Component
