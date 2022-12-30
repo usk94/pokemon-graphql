@@ -7,6 +7,7 @@ const getPokemons = gql(`
   query pokemon {
     pokemon_v2_pokemon(limit:5, where:{pokemon_species_id: {_gt: 500}}) {
       name
+      id
       pokemon_v2_pokemonsprites {
         sprites
       }
@@ -23,20 +24,22 @@ const Component = () => {
 
   if (fetching) return <p>ロード中...</p>
   if (error) return <p>こういうエラーが発生しました: {error.message}</p>
-  return (
+  const ListItems = (
     <>
       {pokemons?.map((p) => {
-        const urlIndex = JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites)
-        const url = urlIndex.front_default
+        const url = JSON.parse(
+          p.pokemon_v2_pokemonsprites[0].sprites
+        ).front_default
         return (
-          <>
+          <li key={p.id}>
             <p>{p.name}</p>
             <Image src={url} height={100} width={100} alt="pokemon" />
-          </>
+          </li>
         )
       })}
     </>
   )
+  return <ul>{ListItems}</ul>
 }
 
 export default Component
