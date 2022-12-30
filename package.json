@@ -10,10 +10,14 @@
     "gen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.13",
     "graphql": "^16.6.0",
     "next": "13.0.6",
+    "postcss": "^8.4.20",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-paginate": "^8.1.4",
+    "tailwindcss": "^3.2.4",
     "urql": "^3.0.3"
   },
   "devDependencies": {
@@ -24,6 +28,7 @@
     "@types/react-dom": "^18.0.9",
     "eslint": "^8.30.0",
     "eslint-config-next": "^13.0.7",
+    "sass": "^1.57.1",
     "typescript": "^4.9.4"
   }
 }

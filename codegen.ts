@@ -2,7 +2,7 @@ import type { CodegenConfig } from "@graphql-codegen/cli"
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: "https://graphql-pokemon2.vercel.app",
+  schema: "https://beta.pokeapi.co/graphql/v1beta",
   documents: ["src/**/*.tsx", "pages/*.tsx"],
   ignoreNoDocuments: true,
   generates: {
