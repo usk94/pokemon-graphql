@@ -1,3 +1,5 @@
+"use client"
+
 import { gql, useQuery } from "urql"
 
 import Image from "next/image"
@@ -14,7 +16,16 @@ const getPokemons = gql(`
   }
 `)
 
-const Component = () => {
+type PageProps = {
+  params?: {
+    id: string
+  }
+  searchParams?: {
+    search?: string
+  }
+}
+
+const Page = ({ pageParams }: { pageParams: PageProps }) => {
   const [result, reeexcute] = useQuery<Query_Root>({
     query: getPokemons,
   })
@@ -39,4 +50,4 @@ const Component = () => {
   )
 }
 
-export default Component
+export default Page
