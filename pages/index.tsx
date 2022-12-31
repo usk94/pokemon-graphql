@@ -1,5 +1,4 @@
 import PokemonPagination from "../src/components/pokemonPagination"
-import styles from "../styles/PaginationContainer.module.scss"
 import csv from "csvtojson"
 
 export type PokemonName = {
@@ -10,7 +9,7 @@ export type PokemonName = {
 const Component = ({ nameJson }: { nameJson: PokemonName[] }) => {
   return (
     <>
-      <div className={styles.container}>
+      <div>
         <PokemonPagination itemsPerPage={10} nameJson={nameJson} />
       </div>
     </>
