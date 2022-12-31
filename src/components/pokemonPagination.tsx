@@ -4,9 +4,10 @@ import Image from "next/image"
 import { Pokemon_V2_Pokemon, Query_Root } from "../@types/types"
 import ReactPaginate from "react-paginate"
 import { useState } from "react"
+import { PokemonName } from "../../pages"
 
 const getPokemons = gql(`
-  query pokemon {
+  query getPokemons {
     pokemon_v2_pokemon(limit:30, where:{pokemon_species_id: {_gt: 500}}) {
       name
       id
@@ -17,7 +18,13 @@ const getPokemons = gql(`
   }
 `)
 
-const Items = ({ currentItems }: { currentItems: Pokemon_V2_Pokemon[] }) => {
+const Items = ({
+  currentItems,
+  nameJson,
+}: {
+  currentItems: Pokemon_V2_Pokemon[]
+  nameJson: PokemonName[]
+}) => {
   return (
     <>
       {currentItems && (
@@ -26,9 +33,12 @@ const Items = ({ currentItems }: { currentItems: Pokemon_V2_Pokemon[] }) => {
             const url = JSON.parse(
               p.pokemon_v2_pokemonsprites[0].sprites
             ).front_default
+            const name = nameJson.find(
+              (j) => j.english.toLowerCase() === p.name
+            )
             return (
               <div key={p.id} className="flex items-center justify-center">
-                <p>{p.name}</p>
+                <p>{name?.japanese}</p>
                 <Image src={url} height={100} width={100} alt="pokemon" />
               </div>
             )
@@ -39,7 +49,13 @@ const Items = ({ currentItems }: { currentItems: Pokemon_V2_Pokemon[] }) => {
   )
 }
 
-const PokemonPagination = ({ itemsPerPage }: { itemsPerPage: number }) => {
+const PokemonPagination = ({
+  itemsPerPage,
+  nameJson,
+}: {
+  itemsPerPage: number
+  nameJson: PokemonName[]
+}) => {
   const [result, reeexcute] = useQuery<Query_Root>({
     query: getPokemons,
   })
@@ -49,15 +65,11 @@ const PokemonPagination = ({ itemsPerPage }: { itemsPerPage: number }) => {
 
   if (!pokemons) return null
   const endOffset = itemOffset + itemsPerPage
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`)
   const currentItems = pokemons.slice(itemOffset, endOffset)
   const pageCount = Math.ceil(pokemons.length / itemsPerPage)
 
   const handlePageClick = (selectedItem: { selected: number }) => {
     const newOffset = (selectedItem.selected * itemsPerPage) % pokemons.length
-    console.log(
-      `User requested page number ${selectedItem.selected}, which is offset ${newOffset}`
-    )
     setItemOffset(newOffset)
   }
 
@@ -65,7 +77,7 @@ const PokemonPagination = ({ itemsPerPage }: { itemsPerPage: number }) => {
   if (error) return <p>こういうエラーが発生しました: {error.message}</p>
   return (
     <>
-      <Items currentItems={currentItems} />
+      <Items currentItems={currentItems} nameJson={nameJson} />
       <ReactPaginate
         breakLabel="..."
         nextLabel=">"
