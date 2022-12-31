@@ -10,6 +10,9 @@
     "gen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.2",
     "autoprefixer": "^10.4.13",
     "csvtojson": "^2.0.10",
     "graphql": "^16.6.0",

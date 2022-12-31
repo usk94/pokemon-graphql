@@ -6,18 +6,6 @@ import ReactPaginate from "react-paginate"
 import { useState } from "react"
 import { PokemonName } from "../../pages"
 
-const getPokemons = gql(`
-  query getPokemons {
-    pokemon_v2_pokemon(limit:30, where:{pokemon_species_id: {_gt: 500}}) {
-      name
-      id
-      pokemon_v2_pokemonsprites {
-        sprites
-      }
-    }
-  }
-`)
-
 const Items = ({
   currentItems,
   nameJson,
@@ -52,16 +40,14 @@ const Items = ({
 const PokemonPagination = ({
   itemsPerPage,
   nameJson,
+  pokemons
 }: {
   itemsPerPage: number
   nameJson: PokemonName[]
+  pokemons: Pokemon_V2_Pokemon[]
 }) => {
-  const [result, reeexcute] = useQuery<Query_Root>({
-    query: getPokemons,
-  })
-  const { data, fetching, error } = result
   const [itemOffset, setItemOffset] = useState(0)
-  const pokemons = data?.pokemon_v2_pokemon
+  
 
   if (!pokemons) return null
   const endOffset = itemOffset + itemsPerPage
@@ -73,8 +59,6 @@ const PokemonPagination = ({
     setItemOffset(newOffset)
   }
 
-  if (fetching) return <p>ロード中...</p>
-  if (error) return <p>こういうエラーが発生しました: {error.message}</p>
   return (
     <>
       <Items currentItems={currentItems} nameJson={nameJson} />
