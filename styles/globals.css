@@ -35,7 +35,7 @@ li a {
   font-weight: bold;
 }
 
-li .selected {
+.selected {
   background: linear-gradient(red 46%, black 46%, black 54%, white 54%);
 }
 
