@@ -7,7 +7,7 @@ import { useState } from "react"
 import { PokemonName } from "../../pages"
 
 const getPokemons = gql(`
-  query pokemon {
+  query getPokemons {
     pokemon_v2_pokemon(limit:30, where:{pokemon_species_id: {_gt: 500}}) {
       name
       id
@@ -65,15 +65,11 @@ const PokemonPagination = ({
 
   if (!pokemons) return null
   const endOffset = itemOffset + itemsPerPage
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`)
   const currentItems = pokemons.slice(itemOffset, endOffset)
   const pageCount = Math.ceil(pokemons.length / itemsPerPage)
 
   const handlePageClick = (selectedItem: { selected: number }) => {
     const newOffset = (selectedItem.selected * itemsPerPage) % pokemons.length
-    console.log(
-      `User requested page number ${selectedItem.selected}, which is offset ${newOffset}`
-    )
     setItemOffset(newOffset)
   }
 
