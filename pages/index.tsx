@@ -216,6 +216,7 @@ const Component = ({ nameJson }: { nameJson: PokemonName[] }) => {
 }
 
 export const getServerSideProps = async () => {
+  // hoge
   const csvFilePath = "../pokemon_name.csv"
   const nameJson = await csv().fromFile(csvFilePath)
   return { props: { nameJson } }
