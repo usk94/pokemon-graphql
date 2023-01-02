@@ -1,10 +1,9 @@
-import { gql, useQuery } from "urql"
-
 import Image from "next/image"
-import { Pokemon_V2_Pokemon, Query_Root } from "../@types/types"
+import { Pokemon_V2_Pokemon } from "../@types/types"
 import ReactPaginate from "react-paginate"
 import { useState } from "react"
 import { PokemonName } from "../../pages"
+import Link from "next/link"
 
 const Items = ({
   currentItems,
@@ -25,10 +24,14 @@ const Items = ({
               (j) => j.english.toLowerCase() === p.name
             )
             return (
-              <div key={p.id} className="flex items-center justify-center">
+              <Link
+                href={`/${p.id}`}
+                key={p.id}
+                className="flex items-center justify-center"
+              >
                 <p>{name?.japanese}</p>
                 <Image src={url} height={100} width={100} alt="pokemon" />
-              </div>
+              </Link>
             )
           })}
         </div>
@@ -37,17 +40,16 @@ const Items = ({
   )
 }
 
-const PokemonPagination = ({
+const PokemonList = ({
   itemsPerPage,
   nameJson,
-  pokemons
+  pokemons,
 }: {
   itemsPerPage: number
   nameJson: PokemonName[]
   pokemons: Pokemon_V2_Pokemon[]
 }) => {
   const [itemOffset, setItemOffset] = useState(0)
-  
 
   if (!pokemons) return null
   const endOffset = itemOffset + itemsPerPage
@@ -69,9 +71,10 @@ const PokemonPagination = ({
         pageRangeDisplayed={5}
         pageCount={pageCount}
         previousLabel="<"
+        className="mt-20"
       />
     </>
   )
 }
 
-export default PokemonPagination
+export default PokemonList

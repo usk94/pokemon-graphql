@@ -17,10 +17,21 @@ ul {
   gap: 12px;
 }
 
+.MuiList-root {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  justify-content: baseline;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border: 1px solid black !important;
+}
+
 li {
   list-style-type: none;
   cursor: pointer;
-  border-radius: 50%; 
+  border-radius: 50%;
 }
 
 li a {
