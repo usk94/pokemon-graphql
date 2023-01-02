@@ -21,10 +21,6 @@ const Component = ({ params }: { params: { id: number } }) => {
   })
   const { data, fetching, error } = result
   if (fetching) return null
-  console.log(
-    "data?.pokemon_v2_pokemon[0].pokemon_v2_pokemonsprites[0].sprites!",
-    data?.pokemon_v2_pokemon[0].pokemon_v2_pokemonsprites[0].sprites!
-  )
   const frontUrl = JSON.parse(
     data?.pokemon_v2_pokemon[0].pokemon_v2_pokemonsprites[0].sprites!
   ).front_default
@@ -34,8 +30,12 @@ const Component = ({ params }: { params: { id: number } }) => {
   return (
     <>
       <p>{data?.pokemon_v2_pokemon[0].name}</p>
-      <Image src={frontUrl} height={100} width={100} alt="pokemon" />
-      <Image src={backUrl} height={100} width={100} alt="pokemon" />
+      {frontUrl && (
+        <Image src={frontUrl} height={200} width={200} alt="pokemon" />
+      )}
+      {backUrl && (
+        <Image src={backUrl} height={200} width={200} alt="pokemon" />
+      )}
     </>
   )
 }
