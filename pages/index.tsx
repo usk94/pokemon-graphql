@@ -18,28 +18,28 @@ export type PokemonName = {
   english: string
 }
 
-const allPokemonTypes = [
-  "normal",
-  "fire",
-  "water",
-  "grass",
-  "electric",
-  "ice",
-  "fighting",
-  "poison",
-  "ground",
-  "flying",
-  "psychic",
-  "bug",
-  "rock",
-  "ghost",
-  "dark",
-  "dragon",
-  "steel",
-  "fairy",
-] as const
+export const allPokemonTypes = {
+  normal: "ノーマル",
+  fire: "ほのお",
+  water: "みず",
+  grass: "くさ",
+  electric: "でんき",
+  ice: "こおり",
+  fighting: "かくとう",
+  poison: "どく",
+  ground: "じめん",
+  flying: "ひこう",
+  psychic: "エスパー",
+  bug: "むし",
+  rock: "いわ",
+  ghost: "ゴースト",
+  dark: "あく",
+  dragon: "ドラゴン",
+  steel: "はがね",
+  fairy: "フェアリー",
+}
 
-export type PokemonType = typeof allPokemonTypes[number]
+export type PokemonType = keyof typeof allPokemonTypes
 
 const generationLimit = {
   none: {
@@ -116,7 +116,7 @@ const Component = ({ nameJson }: { nameJson: PokemonName[] }) => {
     setPause(true)
   }
   const PokemonTypeForQuery =
-    pokemonType !== "none" ? [pokemonType] : allPokemonTypes
+    pokemonType !== "none" ? [pokemonType] : Object.keys(allPokemonTypes)
   const [result, reexecute] = useQuery<Query_Root>({
     query: getPokemons,
     variables: {
@@ -137,7 +137,7 @@ const Component = ({ nameJson }: { nameJson: PokemonName[] }) => {
     reexecute({ requestPolicy: "network-only" })
   }
 
-  if (fetching) return <p>ロード中...</p>
+  if (fetching) return null
   if (!pokemons) return <p>一致するポケモンはいませんでした</p>
   if (error) return <p>こういうエラーが発生しました: {error.message}</p>
 

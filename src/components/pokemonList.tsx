@@ -82,7 +82,9 @@ const Pokemons = ({
                   src={url}
                   height={100}
                   width={100}
-                  alt={name?.japanese ? name.japanese : "pokemon"}
+                  alt={
+                    name?.japanese ? `${name.japanese} front image` : "pokemon"
+                  }
                   className="bg-white rounded-lg"
                 />
               </Link>
