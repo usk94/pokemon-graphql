@@ -120,7 +120,7 @@ japanese,english
 アズマオウ,Seaking
 ヒトデマン,Staryu
 スターミー,Starmie
-バリヤード,Mr. Mime
+バリヤード,Mr-Mime
 ストライク,Scyther
 ルージュラ,Jynx
 エレブー,Electabuzz
@@ -437,7 +437,7 @@ japanese,english
 ドーミラー,Bronzor
 ドータクン,Bronzong
 ウソハチ,Bonsly
-マネネ,Mime Jr.
+マネネ,Mime-Jr
 ピンプク,Happiny
 ペラップ,Chatot
 ミカルゲ,Spiritomb
@@ -770,23 +770,23 @@ japanese,english
 スナバァ,Sandygast
 シロデスナ,Palossand
 ナマコブシ,Pyukumuku
-タイプ:ヌル,Type: Null
+タイプ:ヌル,Type-Null
 シルヴァディ,Silvally
 メテノ,Minior
 ネッコアラ,Komala
 バクガメス,Turtonator
 トゲデマル,Togedemaru
-ミミッキュ,Mimikyu
+ミミッキュ,mimikyu-disguised
 ハギギシリ,Bruxish
 ジジーロン,Drampa
 ダダリン,Dhelmise
 ジャラコ,Jangmo-o
 ジャランゴ,Hakamo-o
 ジャラランガ,Kommo-o
-カプ・コケコ,Tapu Koko
-カプ・テテフ,Tapu Lele
-カプ・ブルル,Tapu Bulu
-カプ・レヒレ,Tapu Fini
+カプ・コケコ,Tapu-Koko
+カプ・テテフ,Tapu-Lele
+カプ・ブルル,Tapu-Bulu
+カプ・レヒレ,Tapu-Fini
 コスモッグ,Cosmog
 コスモウム,Cosmoem
 ソルガレオ,Solgaleo
@@ -864,7 +864,7 @@ japanese,english
 ニャイキング,Perrserker
 サニゴーン,Cursola
 ネギガナイト,Sirfetch'd
-バリコオル,Mr. Rime
+バリコオル,Mr-Rime
 デスバーン,Runerigus
 マホミル,Milcery
 マホイップ,Alcremie
