@@ -2,10 +2,50 @@ import Image from "next/image"
 import { Pokemon_V2_Pokemon } from "../@types/types"
 import ReactPaginate from "react-paginate"
 import { useState } from "react"
-import { PokemonName } from "../../pages"
+import { PokemonName, PokemonType } from "../../pages"
 import Link from "next/link"
 
-const Items = ({
+const bgColorCode = (pokemonType: string) => {
+  if (pokemonType === "grass") {
+    return "#78C850"
+  } else if (pokemonType === "dark") {
+    return "#705848"
+  } else if (pokemonType === "rock") {
+    return "#B8A038"
+  } else if (pokemonType === "psychic") {
+    return "#F85888"
+  } else if (pokemonType === "fighting") {
+    return "#C03028"
+  } else if (pokemonType === "ghost") {
+    return "#705898"
+  } else if (pokemonType === "ice") {
+    return "#98D8D8"
+  } else if (pokemonType === "ground") {
+    return "#E0C068"
+  } else if (pokemonType === "electric") {
+    return "#F8D030"
+  } else if (pokemonType === "poison") {
+    return "#A040A0"
+  } else if (pokemonType === "dragon") {
+    return "#7038F8"
+  } else if (pokemonType === "normal") {
+    return "#A8A878"
+  } else if (pokemonType === "steel") {
+    return "#B8B8D0"
+  } else if (pokemonType === "flying") {
+    return "#A890F0"
+  } else if (pokemonType === "fairy") {
+    return "#EE99AC"
+  } else if (pokemonType === "fire") {
+    return "#F08030"
+  } else if (pokemonType === "water") {
+    return "#6890F0"
+  } else {
+    return "#A8B820"
+  }
+}
+
+const Pokemons = ({
   currentItems,
   nameJson,
 }: {
@@ -15,7 +55,7 @@ const Items = ({
   return (
     <>
       {currentItems && (
-        <div className="flex flex-row justify-center flex-wrap gap-10 px-28 py-10">
+        <div className="flex flex-row justify-center flex-wrap gap-8 px-28 py-10">
           {currentItems?.map((p) => {
             const url = JSON.parse(
               p.pokemon_v2_pokemonsprites[0].sprites
@@ -27,10 +67,24 @@ const Items = ({
               <Link
                 href={`/${p.id}`}
                 key={p.id}
-                className="flex items-center justify-center"
+                className="flex items-center justify-center rounded-2xl pl-4 pr-2 py-2 gap-4"
+                style={{
+                  backgroundColor: p.pokemon_v2_pokemontypes[0].pokemon_v2_type
+                    ?.name
+                    ? bgColorCode(
+                        p.pokemon_v2_pokemontypes[0].pokemon_v2_type?.name
+                      )
+                    : "white",
+                }}
               >
-                <p>{name?.japanese}</p>
-                <Image src={url} height={100} width={100} alt="pokemon" />
+                <p className="text-center">{name?.japanese}</p>
+                <Image
+                  src={url}
+                  height={100}
+                  width={100}
+                  alt={name?.japanese ? name.japanese : "pokemon"}
+                  className="bg-white rounded-lg"
+                />
               </Link>
             )
           })}
@@ -63,7 +117,7 @@ const PokemonList = ({
 
   return (
     <>
-      <Items currentItems={currentItems} nameJson={nameJson} />
+      <Pokemons currentItems={currentItems} nameJson={nameJson} />
       <ReactPaginate
         breakLabel="..."
         nextLabel=">"

@@ -37,7 +37,9 @@ const allPokemonTypes = [
   "dragon",
   "steel",
   "fairy",
-]
+] as const
+
+export type PokemonType = typeof allPokemonTypes[number]
 
 const generationLimit = {
   none: {
@@ -86,6 +88,11 @@ const getPokemons = gql(`
       pokemon_v2_pokemonsprites {
         sprites
       }
+      pokemon_v2_pokemontypes {
+        pokemon_v2_type {
+          name
+        }
+      }
     }
   }
 `)
@@ -93,7 +100,7 @@ const getPokemons = gql(`
 const Component = ({ nameJson }: { nameJson: PokemonName[] }) => {
   const [generation, setGeneration] =
     useState<keyof typeof generationLimit>("first")
-  const [pokemonType, setPokemonType] = useState("none")
+  const [pokemonType, setPokemonType] = useState<PokemonType | "none">("none")
   const [limit, setLimit] = useState(898)
   const [pause, setPause] = useState(false)
   const handleChangeGeneration = (event: SelectChangeEvent) => {
@@ -101,7 +108,7 @@ const Component = ({ nameJson }: { nameJson: PokemonName[] }) => {
     setPause(true)
   }
   const handleChangePokemonType = (event: SelectChangeEvent) => {
-    setPokemonType(event.target.value)
+    setPokemonType(event.target.value as PokemonType)
     setPause(true)
   }
   const handleChangeLimit = (event: SelectChangeEvent<number>) => {
@@ -136,7 +143,7 @@ const Component = ({ nameJson }: { nameJson: PokemonName[] }) => {
 
   return (
     <div>
-      <div className="flex justify-center gap-8 mt-8 mb-8">
+      <div className="flex justify-center gap-8 mt-8">
         <FormControl className="w-28">
           <InputLabel sx={{ color: "black" }}>世代で絞る</InputLabel>
           <Select
