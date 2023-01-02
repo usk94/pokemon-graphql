@@ -15,7 +15,7 @@ const Items = ({
   return (
     <>
       {currentItems && (
-        <div className="flex flex-row flex-wrap gap-10 px-28 py-10">
+        <div className="flex flex-row justify-center flex-wrap gap-10 px-28 py-10">
           {currentItems?.map((p) => {
             const url = JSON.parse(
               p.pokemon_v2_pokemonsprites[0].sprites

@@ -133,11 +133,10 @@ const Component = ({ nameJson }: { nameJson: PokemonName[] }) => {
   if (fetching) return <p>ロード中...</p>
   if (!pokemons) return <p>一致するポケモンはいませんでした</p>
   if (error) return <p>こういうエラーが発生しました: {error.message}</p>
-  console.log("pokemons", pokemons)
 
   return (
     <div>
-      <div className="flex justify-center gap-8 mt-8">
+      <div className="flex justify-center gap-8 mt-8 mb-8">
         <FormControl className="w-28">
           <InputLabel sx={{ color: "black" }}>世代で絞る</InputLabel>
           <Select
