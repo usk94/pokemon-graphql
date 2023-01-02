@@ -12,6 +12,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search"
 import React, { useState } from "react"
 import PokemonList from "../src/components/pokemonList"
+import { GetServerSidePropsContext } from "next"
 
 export type PokemonName = {
   japanese: string
@@ -215,8 +216,12 @@ const Component = ({ nameJson }: { nameJson: PokemonName[] }) => {
   )
 }
 
-export const getServerSideProps = async () => {
-  const csvFilePath = "../pokemon_name.csv"
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const path = context.resolvedUrl
+  console.log("path", path)
+  const csvFilePath = "/pokemon_name.csv"
   const nameJson = await csv().fromFile(csvFilePath)
   return { props: { nameJson } }
 }
