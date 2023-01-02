@@ -90,7 +90,6 @@ const Component = ({
           ?.name as keyof typeof allPokemonTypes
       ]
     )
-  console.log("types", types)
 
   if (error) return <p>こういうエラーが発生しました: {error.message}</p>
   return (
@@ -146,8 +145,8 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const params = context.params
-  const nameCsvPath = "./pokemon_name.csv"
-  const traitCsvPath = "./pokemon_trait.csv"
+  const nameCsvPath = "../pokemon_name.csv"
+  const traitCsvPath = "../pokemon_trait.csv"
   const nameJson = await csv().fromFile(nameCsvPath)
   const traitJson = await csv().fromFile(traitCsvPath)
   return { props: { params, nameJson, traitJson } }
