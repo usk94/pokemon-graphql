@@ -1,4 +1,3 @@
-import csv from "csvtojson"
 import { gql, useQuery } from "urql"
 import { Query_Root } from "../src/@types/types"
 import {
@@ -12,7 +11,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search"
 import React, { useState } from "react"
 import PokemonList from "../src/components/pokemonList"
-import { GetServerSidePropsContext } from "next"
+import nameJson from "../pokemon_name.json"
 
 export type PokemonName = {
   japanese: string
@@ -98,7 +97,7 @@ const getPokemons = gql(`
   }
 `)
 
-const Component = ({ nameJson }: { nameJson: PokemonName[] }) => {
+const Component = () => {
   const [generation, setGeneration] =
     useState<keyof typeof generationLimit>("first")
   const [pokemonType, setPokemonType] = useState<PokemonType | "none">("none")
@@ -214,17 +213,6 @@ const Component = ({ nameJson }: { nameJson: PokemonName[] }) => {
       <PokemonList itemsPerPage={10} nameJson={nameJson} pokemons={pokemons} />
     </div>
   )
-}
-
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const url = context.resolvedUrl
-  console.log("url", url)
-  const csvFilePath = "./pokemon_name.csv"
-  console.log("csvFilePath", csvFilePath)
-  const nameJson = await csv().fromFile(csvFilePath)
-  return { props: { nameJson } }
 }
 
 export default Component

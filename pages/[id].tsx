@@ -1,14 +1,10 @@
-import csv from "csvtojson"
 import { GetServerSidePropsContext } from "next"
 import Image from "next/image"
 import { gql, useQuery } from "urql"
 import { allPokemonTypes, PokemonName } from "."
 import { Query_Root } from "../src/@types/types"
-
-type PokemonTrait = {
-  japanese: string
-  english: string
-}
+import nameJson from "../pokemon_name.json"
+import traitJson from "../pokemon_trait.json"
 
 const getPokemon = gql(`
   query getPokemon($id: Int!) {
@@ -33,15 +29,7 @@ const getPokemon = gql(`
   }
 `)
 
-const Component = ({
-  params,
-  nameJson,
-  traitJson,
-}: {
-  params: { id: number }
-  nameJson: PokemonName[]
-  traitJson: PokemonTrait[]
-}) => {
+const Component = ({ params }: { params: { id: number } }) => {
   const [result, reeexcute] = useQuery<Query_Root>({
     query: getPokemon,
     variables: { id: params.id },
@@ -145,11 +133,7 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const params = context.params
-  const nameCsvPath = "./pokemon_name.csv"
-  const traitCsvPath = "./pokemon_trait.csv"
-  const nameJson = await csv().fromFile(nameCsvPath)
-  const traitJson = await csv().fromFile(traitCsvPath)
-  return { props: { params, nameJson, traitJson } }
+  return { props: { params } }
 }
 
 export default Component
