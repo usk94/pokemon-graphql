@@ -145,11 +145,11 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const params = context.params
-  // const nameCsvPath = "./pokemon_name.csv"
-  // const traitCsvPath = "./pokemon_trait.csv"
-  // const nameJson = await csv().fromFile(nameCsvPath)
-  // const traitJson = await csv().fromFile(traitCsvPath)
-  return { props: { params } }
+  const nameCsvPath = "./pokemon_name.csv"
+  const traitCsvPath = "./pokemon_trait.csv"
+  const nameJson = await csv().fromFile(nameCsvPath)
+  const traitJson = await csv().fromFile(traitCsvPath)
+  return { props: { params, nameJson, traitJson } }
 }
 
 export default Component
