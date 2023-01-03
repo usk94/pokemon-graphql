@@ -219,11 +219,9 @@ const Component = ({ nameJson }: { nameJson: PokemonName[] }) => {
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const url = context.resolvedUrl
-  console.log("url", url)
   const csvFilePath = "./pokemon_name.csv"
-  console.log("csvFilePath", csvFilePath)
-  const nameJson = await csv().fromFile(csvFilePath)
+  const dummyPath = "../postcss.config.js"
+  const nameJson = await csv().fromFile(dummyPath)
   return { props: { nameJson } }
 }
 
