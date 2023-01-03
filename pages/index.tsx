@@ -220,7 +220,7 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const csvFilePath = "./pokemon_name.csv"
-  const dummyPath = "./postcss.config.js"
+  const dummyPath = "../postcss.config.js"
   const nameJson = await csv().fromFile(dummyPath)
   return { props: { nameJson } }
 }
